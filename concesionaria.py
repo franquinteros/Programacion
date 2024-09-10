@@ -23,11 +23,26 @@ def crear():
     print("_" * 150)
     return nuevo
 
-
+#Listas de vehículos precargadas
 toyota = ["Hilux", "Sw4", "Corolla", "Etios", "Prado"]
 ford = ["Focus", "Eco-Sport", "Mondeo", "Ranger", "Fiesta", "Fiesta Kinetic"]
 chevrolet = ["S-10", "Cruze", "Prisma", "Tracker"]
 wolkswagen = ["Gol", "Amarok", "Bora", "Vento", "Passat", "Surán"]
+
+#Programa principal
+
+menu = int(input('''
+                 EL PATAGÓNICO AUTOMOTORES
+                 
+                 Bienvenid@ al menú de inicio de El Patagónico Automotores
+                 A continuación se detallan las opciones que el sistema permite realizar:
+                 1 - Consultar vehiculos diponibles 
+                 2 - Consultar promedio de ventas por mes
+                 3 - Consultar disponibilidad vehículo (por modelo)
+                 4 - Consultar ultimas ventas realizadas
+                 
+                 Ingrese una opción (número): 
+                 '''))
 
 crear_lista = crear()
 print(crear_lista)
