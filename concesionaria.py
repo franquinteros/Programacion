@@ -1,22 +1,24 @@
 import random
-#import colorama
 
-lista = []
+vehiculos_disponibles = []
+imprimir_vehiculos = []
+
 #Listas de meses 
-Calendario = [ # 0 al 11
-    Enero:= [],
-    Febrero:= [],
-    Marzo:= [],
-    Abril:= [],
-    Mayo:= [],
-    Junio:= [],
-    Julio:= [],
-    Agosto:= [],
-    Septiembre:= [],
-    Octubre:= [],
-    Noviembre:= [],
-    Diciembre:= [],
-]
+Calendario = { 
+    "Enero": {},
+    "Feberero": {},
+    "Marzo": {},
+    "Abril": {},
+    "Mayo": {},
+    "Junio": {},
+    "Julio": {},
+    "Agosto": {},
+    "Septiembre": {},
+    "Octubre": {},
+    "Noviembre": {},
+    "Diciembre": {},
+}
+
 #Listas de vehiculos precargada
 Autos = [
     toyota:= ["Hilux", "Sw4", "Corolla", "Etios", "Prado"],
@@ -47,11 +49,7 @@ MesesNombre = [
     "Diciembre",
 ]
 
-#OPCION 0 CANCELAR 
-def cancelar():
-    pass
-
-#OPCION 1 CONSULTAR VEHÍCULOS DISPONIBLES PARA LA VENTA
+# Asignar 'Características' de cada auto
 def rellenar_lista(template):
     nuevo = []
     for modelos in template:
@@ -62,87 +60,90 @@ def rellenar_lista(template):
             ano = random.randint(2000, 2020)
             kms = random.randint(80000, 150000)
             precio = random.randint(2500000, 9000000)
-            info_vehiculo.append([modelo,"Año:", ano, "Kms:", kms, "Precio:", precio])
+            info_vehiculo.append([modelo + " Año: " + str(ano), "Kms: " + str(kms), "Precio: " + str(precio)])
         nuevo.append(info_vehiculo)
     return nuevo
+
+# Asignar autos disponibles
 def crear():
-    template = [
-        random.sample(Autos[0], 2),
-        random.sample(Autos[1], 2),
-        random.sample(Autos[2], 2),
-        random.sample(Autos[3], 2)
-        ]
+    template = []
+    for marca in Autos:
+        template.append(random.sample(marca, random.randint(1,3)))
     return template
 
-#OPCION 5: MOSTRAR VENTAS X MES
+# Crear ventas por mes
 def crear_ventas():
-    for indicemes in range(len(Calendario)):
-        mes = Calendario[indicemes]
-        for indicemarca in range(len(Autos)): 
-            marca = Autos[indicemarca] 
-            marca_venta = [] 
+    for mes in Calendario:
+        for indicemarca in range(len(Autos)):
+            marca = Autos[indicemarca]
+            nombremarca = AutosNombre[indicemarca]
+            Calendario[mes][nombremarca] = {}
             for indicemodelo in range(len(marca)):
-                modelo = marca[indicemodelo]
+                modelo = Autos[indicemarca][indicemodelo]
                 ventas = random.randint(0,6)
-                marca_venta.append(ventas)
-            mes.append(marca_venta)  
-crear_ventas ()
+                Calendario[mes][nombremarca][modelo] = ventas
 
-def mostrar_ventas(opcion):
-    if opcion == 5:
-        for indicemes in range(len(Calendario)):
-            total_ventas = []
-            mes = Calendario[indicemes]
-            meses = "Mes:",MesesNombre[indicemes] #Mes
-            print(meses)
-            for indicemarca in range(len(mes)):
-                marcas = "Marca:",AutosNombre[indicemarca] #Marca
-                ventas = mes[indicemarca]
-                for indicemodelo in range(len(ventas)):
-                    modelos = "Modelo:",Autos[indicemarca][indicemodelo] #Modelo
-                    cantidad_ventas = "Ventas:",ventas[indicemodelo] #Ventas
-                total_ventas.append([marcas,modelos,cantidad_ventas])
-            print(total_ventas,"\n")
-    return total_ventas      
-
-def mostrar():
-    print("\n- Estos fueron los autos vendidos el último mes.")
+#OPCION 1 CONSULTAR VEHÍCULOS DISPONIBLES PARA LA VENTA
+def mostrar_disponibles():
     print("_" * 150)
-    print(lista)
+    print("PRECIOS EN PESOS ARGENTINOS ($ARS) \n")
+    for indicemarca in range(len(imprimir_vehiculos)):
+        print("Marca:", AutosNombre[indicemarca])
+        print("Autos disponibles:")
+        for infoauto in imprimir_vehiculos[indicemarca]:
+            print(str(infoauto).strip("[,]"))
+        print("_" * 30)
 
-funciones = [
-    cancelar, mostrar
-]
+#OPCION 5: MOSTRAR VENTAS X MES
+
+def mostrar_ventas():
+    sumaanual = 0
+    for mes in Calendario:
+        print(str(mes))
+        sumamensual = 0
+        for marca in Calendario[mes]:
+            print("-" * 5)
+            print(str(marca))
+            print("-" * 5)
+            sumamarca = 0
+            for modelo in Calendario[mes][marca]:
+                venta = Calendario[mes][marca][modelo]
+                print(str(modelo)+":"+str(venta))
+                sumamarca += venta
+                sumamensual += venta
+                sumaanual += venta
+            print("TOTAL "+str(marca)+":",sumamarca)
+        print("TOTAL "+str(mes)+":",sumamensual)
+        print("_" * 150)
+    print("PROMEDIO DE VENTAS POR MES:", (sumaanual/12)) #fix
+
+
+funciones = {
+    "1": mostrar_disponibles,
+    "4": mostrar_ventas
+}
 
 #Programa principal
-lista = crear()
-vehiculos_disponibles = crear() 
+vehiculos_disponibles = crear() # Eliminar esto en futura versiones
 imprimir_vehiculos = rellenar_lista(vehiculos_disponibles)
+crear_ventas()
+
 while True:
     opcion = int(input('''
-                    EL PATAGÓNICO AUTOMOTORES
+                                    EL PATAGÓNICO AUTOMOTORES
                     
                     Bienvenid@ al menú de inicio de El Patagónico Automotores
                     A continuación se detallan las opciones que el sistema permite realizar:
                     
                     1 - Consultar vehiculos diponibles 
-                    2 - Consultar promedio de ventas por mes
-                    3 - Consultar disponibilidad vehículo (Aplicando filtros)
-                    4 - Consultar ultimas ventas realizadas
-                    5 - Consultar ventas realizadas mes a mes 
+                    2 - Consultar disponibilidad vehículo (Aplicando filtros)
+                    3 - Consultar ultimas ventas realizadas
+                    4 - Consultar ventas (Total y promedio de cada mes)
                     0 - Cerrar
                     
                     Ingrese una opción (número): '''))
     if opcion == 0:
         break
-    elif opcion == 1:
-        print(imprimir_vehiculos) #Falta completar
-    elif opcion == 2:
-        print(imprimir_vehiculos) #Realizar
-    elif opcion == 3:
-        print(mostrar_ventas(opcion)) #Realizar
-    elif opcion == 4:
-        print(mostrar_ventas(opcion)) #Realizar
-    elif opcion == 5:
-        print(mostrar_ventas(opcion)) #Completo
+    else:
+        funciones[str(opcion)]()
     
