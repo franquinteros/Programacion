@@ -54,13 +54,11 @@ def rellenar_lista(template):
     nuevo = []
     for modelos in template:
         info_vehiculo = []
-        '''for marca in AutosNombre:
-        info_vehiculo.append(marca)'''
         for modelo in modelos:
             ano = random.randint(2000, 2020)
             kms = random.randint(80000, 150000)
             precio = random.randint(2500000, 9000000)
-            info_vehiculo.append([modelo + " Año: " + str(ano), "Kms: " + str(kms), "Precio: " + str(precio)])
+            info_vehiculo.append([modelo , " Año: " + str(ano), "Kms: " + str(kms), "Precio: " + str(precio)])
         nuevo.append(info_vehiculo)
     return nuevo
 
@@ -69,8 +67,8 @@ def crear():
     template = []
     for marca in Autos:
         template.append(random.sample(marca, random.randint(1,3)))
-    return template
-
+    return template   
+    
 # Crear ventas por mes
 def crear_ventas():
     for mes in Calendario:
@@ -94,8 +92,21 @@ def mostrar_disponibles():
             print(str(infoauto).strip("[,]"))
         print("_" * 30)
 
-#OPCION 5: MOSTRAR VENTAS X MES
+#FUNCION 2 BUSCAR AUTO DISPONIBLE
+def buscar_auto(autosDisponibles):
+    disponible = 0
+    auto = input("Ingrese el modelo que desea buscar (por ejemplo Prado, Gol, Corolla, etc): ")
+    for modelos in range(len(autosDisponibles)):
+        for modelo in range(len(autosDisponibles[modelos])):
+            if auto == autosDisponibles[modelos][modelo][0]:
+                disponible = 1
+                info = autosDisponibles[modelos][modelo]
+    if disponible == 1:
+        print("El auto",auto, "se encuentra disponible: \n",
+            info)
+    else: print("El auto ingresado no se encuentra disponible")
 
+#OPCION 4: MOSTRAR VENTAS X MES + PROMEDIO
 def mostrar_ventas():
     sumaanual = 0
     for mes in Calendario:
@@ -117,17 +128,20 @@ def mostrar_ventas():
         print("_" * 150)
     print("PROMEDIO DE VENTAS POR MES:", (sumaanual/12)) #fix
 
-
+#MENÚ DE OPCIONES
 funciones = {
     "1": mostrar_disponibles,
+    "2": buscar_auto,
     "4": mostrar_ventas
 }
 
-#Programa principal
+#PROGRAMA PRINCIPAL
+
 vehiculos_disponibles = crear() # Eliminar esto en futura versiones
 imprimir_vehiculos = rellenar_lista(vehiculos_disponibles)
+print(imprimir_vehiculos)
 crear_ventas()
-
+print(buscar_auto(imprimir_vehiculos))
 while True:
     opcion = int(input('''
                                     EL PATAGÓNICO AUTOMOTORES
@@ -142,6 +156,7 @@ while True:
                     0 - Cerrar
                     
                     Ingrese una opción (número): '''))
+    
     if opcion == 0:
         break
     else:
