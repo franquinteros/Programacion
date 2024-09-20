@@ -6,7 +6,7 @@ vehiculos_texto = []
 #Listas de meses 
 Calendario = { 
     "Enero": {},
-    "Feberero": {},
+    "Febrero": {},
     "Marzo": {},
     "Abril": {},
     "Mayo": {},
@@ -26,6 +26,7 @@ Autos = [
     chevrolet:= ["S-10", "Cruze", "Prisma", "Tracker"],
     wolkswagen:= ["Gol", "Amarok", "Bora", "Vento", "Passat", "Surán"]
 ]
+
 #Template de marcas
 MarcasNombre = [
     "Toyota",
@@ -68,7 +69,7 @@ def mostrar_disponibles():
             print(str(infoauto).strip("[,]"))
         print("_" * 30)
 
-#FUNCION 2 BUSCAR AUTO DISPONIBLE
+# FUNCION 2 BUSCAR AUTO DISPONIBLE
 def buscar_auto():
     disponible = False
     auto = None
@@ -76,20 +77,32 @@ def buscar_auto():
         auto = str(input("Ingrese el modelo que desea buscar (por ejemplo Prado, Gol, Corolla, etc). Ingrese '0' para cancelar. : "))
         for modelos in range(len(vehiculos_lista)):
             for modelo in range(len(vehiculos_lista[modelos])):
-                if auto == vehiculos_lista[modelos][modelo][0]:
+                if str.lower(auto) == str.lower(vehiculos_lista[modelos][modelo]):
                     disponible = True
-                    info = vehiculos_lista[modelos][modelo]
+                    info = vehiculos_texto[modelos][modelo]
+                    break
         if disponible:
-            print("El auto",auto, "se encuentra disponible: \n",
-                info)
-        else: print("El auto ingresado no se encuentra disponible")
+            print("El auto",auto, "se encuentra disponible: \n", str(info).strip("[]"))
+        else: 
+            print("El auto ingresado no se encuentra disponible")
 
-#OPCION 4: MOSTRAR VENTAS X MES + PROMEDIO
+# OPCION 3: CONSULTAR ULTIMAS VENTAS REALIZADAS
+def ultimas_ventas():
+    print("ULTIMAS VENTAS:")
+
+# OPCION 4: MOSTRAR VENTAS X MES + PROMEDIO
 def mostrar_ventas():
     sumaanual = 0
+    sumameses = 0
+    ingresarmes = str(input("Ingresar el mes actual: "))
+    continuar = True
     for mes in Calendario:
-        print(str(mes))
+        if str.lower(str(mes)) == str.lower(ingresarmes):
+            continuar = False
+        if not continuar:
+            break
         sumamensual = 0
+        sumameses += 1
         for marca in Calendario[mes]:
             print("-" * 5)
             print(str(marca))
@@ -104,7 +117,10 @@ def mostrar_ventas():
             print("TOTAL "+str(marca)+":",sumamarca)
         print("TOTAL "+str(mes)+":",sumamensual)
         print("_" * 150)
-    print("PROMEDIO DE VENTAS POR MES:", (sumaanual/12)) #fix
+    if sumameses <= 0:
+        print("No hay suficientes meses.")
+        return None
+    print("PROMEDIO DE VENTAS POR MES:", (sumaanual/sumameses)) #fix
 
 # "Main" - Preparar todo
 def inicializar():
@@ -115,6 +131,7 @@ def inicializar():
 
 # MENÚ DE OPCIONES
 funciones = {
+    "0": None,
     "1": mostrar_disponibles,
     "2": buscar_auto,
     "4": mostrar_ventas
@@ -124,7 +141,7 @@ funciones = {
 inicializar()
 
 while True:
-    opcion = int(input('''
+    opcion = str(input('''
                                     EL PATAGÓNICO AUTOMOTORES
                     
                     Bienvenid@ al menú de inicio de El Patagónico Automotores
@@ -136,10 +153,17 @@ while True:
                     4 - Consultar ventas (Total y promedio de cada mes)
                     0 - Cerrar
                     
-                    Ingrese una opción (número): '''))
-    
-    if opcion == 0:
-        break
+                    Ingrese una opción (número): ''')) # fixear valores random
+
+    if opcion in funciones:
+        opcion = int(opcion)
+        if (opcion >= 0 and opcion <= 4) or type(opcion):
+            if opcion == 0:
+                break
+            else:
+                funciones[str(opcion)]()
     else:
-        funciones[str(opcion)]()
+        print("Opción no válida.")
+
+    
     
