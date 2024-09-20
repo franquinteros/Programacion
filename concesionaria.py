@@ -27,26 +27,11 @@ Autos = [
     wolkswagen:= ["Gol", "Amarok", "Bora", "Vento", "Passat", "Surán"]
 ]
 #Template de marcas
-AutosNombre = [
+MarcasNombre = [
     "Toyota",
     "Ford",
     "Chevrolet",
     "Wolkswagen"
-]
-#Template de meses
-MesesNombre = [
-    "Enero",
-    "Febrero",
-    "Marzo",
-    "Abril",
-    "Mayo",
-    "Junio",
-    "Julio",
-    "Agosto",
-    "Septiembre",
-    "Octubre",
-    "Noviembre",
-    "Diciembre",
 ]
 
 # Asignar 'Características' de cada auto
@@ -54,13 +39,11 @@ def rellenar_lista(template):
     nuevo = []
     for modelos in template:
         info_vehiculo = []
-        '''for marca in AutosNombre:
-        info_vehiculo.append(marca)'''
         for modelo in modelos:
             ano = random.randint(2000, 2020)
             kms = random.randint(80000, 150000)
             precio = random.randint(2500000, 9000000)
-            info_vehiculo.append([modelo + " Año: " + str(ano), "Kms: " + str(kms), "Precio: " + str(precio)])
+            info_vehiculo.append([modelo , " Año: " + str(ano), "Kms: " + str(kms), "Precio: " + str(precio)])
         nuevo.append(info_vehiculo)
     return nuevo
 
@@ -69,14 +52,14 @@ def crear():
     template = []
     for marca in Autos:
         template.append(random.sample(marca, random.randint(1,3)))
-    return template
-
+    return template   
+    
 # Crear ventas por mes
 def crear_ventas():
     for mes in Calendario:
         for indicemarca in range(len(Autos)):
             marca = Autos[indicemarca]
-            nombremarca = AutosNombre[indicemarca]
+            nombremarca = MarcasNombre[indicemarca]
             Calendario[mes][nombremarca] = {}
             for indicemodelo in range(len(marca)):
                 modelo = Autos[indicemarca][indicemodelo]
@@ -88,14 +71,29 @@ def mostrar_disponibles():
     print("_" * 150)
     print("PRECIOS EN PESOS ARGENTINOS ($ARS) \n")
     for indicemarca in range(len(imprimir_vehiculos)):
-        print("Marca:", AutosNombre[indicemarca])
+        print("Marca:", MarcasNombre[indicemarca])
         print("Autos disponibles:")
         for infoauto in imprimir_vehiculos[indicemarca]:
             print(str(infoauto).strip("[,]"))
         print("_" * 30)
 
-#OPCION 5: MOSTRAR VENTAS X MES
+#FUNCION 2 BUSCAR AUTO DISPONIBLE
+def buscar_auto():
+    disponible = False
+    auto = None
+    while auto != "0":
+        auto = str(input("Ingrese el modelo que desea buscar (por ejemplo Prado, Gol, Corolla, etc). Ingrese '0' para cancelar. : "))
+        for modelos in range(len(vehiculos_disponibles)):
+            for modelo in range(len(vehiculos_disponibles[modelos])):
+                if auto == vehiculos_disponibles[modelos][modelo][0]:
+                    disponible = True
+                    info = vehiculos_disponibles[modelos][modelo]
+        if disponible:
+            print("El auto",auto, "se encuentra disponible: \n",
+                info)
+        else: print("El auto ingresado no se encuentra disponible")
 
+#OPCION 4: MOSTRAR VENTAS X MES + PROMEDIO
 def mostrar_ventas():
     sumaanual = 0
     for mes in Calendario:
@@ -117,13 +115,14 @@ def mostrar_ventas():
         print("_" * 150)
     print("PROMEDIO DE VENTAS POR MES:", (sumaanual/12)) #fix
 
-
+#MENÚ DE OPCIONES
 funciones = {
     "1": mostrar_disponibles,
+    "2": buscar_auto,
     "4": mostrar_ventas
 }
 
-#Programa principal
+#PROGRAMA PRINCIPAL
 vehiculos_disponibles = crear() # Eliminar esto en futura versiones
 imprimir_vehiculos = rellenar_lista(vehiculos_disponibles)
 crear_ventas()
@@ -142,9 +141,9 @@ while True:
                     0 - Cerrar
                     
                     Ingrese una opción (número): '''))
+    
     if opcion == 0:
         break
     else:
         funciones[str(opcion)]()
     
-print("HOLA")
