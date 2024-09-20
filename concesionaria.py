@@ -27,7 +27,6 @@ Autos = [
     wolkswagen:= ["Gol", "Amarok", "Bora", "Vento", "Passat", "Surán"]
 ]
 #Template de marcas
-print(list(Autos[0].keys()))
 MarcasNombre = [
     "Toyota",
     "Ford",
@@ -114,15 +113,16 @@ def inicializar():
     vehiculos_texto = preparar_autos(vehiculos_lista)
     crear_ventas()
 
-#MENÚ DE OPCIONES
+# MENÚ DE OPCIONES
 funciones = {
     "1": mostrar_disponibles,
     "2": buscar_auto,
     "4": mostrar_ventas
 }
 
-#PROGRAMA PRINCIPAL
+# PROGRAMA PRINCIPAL
 inicializar()
+
 while True:
     opcion = int(input('''
                                     EL PATAGÓNICO AUTOMOTORES
