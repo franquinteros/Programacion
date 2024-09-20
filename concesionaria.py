@@ -1,7 +1,7 @@
 import random
 
-vehiculos_disponibles = []
-imprimir_vehiculos = []
+vehiculos_lista = []
+vehiculos_texto = []
 
 #Listas de meses 
 Calendario = { 
@@ -27,6 +27,7 @@ Autos = [
     wolkswagen:= ["Gol", "Amarok", "Bora", "Vento", "Passat", "Surán"]
 ]
 #Template de marcas
+print(list(Autos[0].keys()))
 MarcasNombre = [
     "Toyota",
     "Ford",
@@ -35,24 +36,15 @@ MarcasNombre = [
 ]
 
 # Asignar 'Características' de cada auto
-def rellenar_lista(template):
-    nuevo = []
+def preparar_autos(template):
     for modelos in template:
         info_vehiculo = []
         for modelo in modelos:
             ano = random.randint(2000, 2020)
             kms = random.randint(80000, 150000)
             precio = random.randint(2500000, 9000000)
-            info_vehiculo.append([modelo , " Año: " + str(ano), "Kms: " + str(kms), "Precio: " + str(precio)])
-        nuevo.append(info_vehiculo)
-    return nuevo
-
-# Asignar autos disponibles
-def crear():
-    template = []
-    for marca in Autos:
-        template.append(random.sample(marca, random.randint(1,3)))
-    return template   
+            info_vehiculo.append([modelo, " Año: " + str(ano), "Kms: " + str(kms), "Precio: " + str(precio)])
+        vehiculos_texto.append(info_vehiculo)
     
 # Crear ventas por mes
 def crear_ventas():
@@ -70,10 +62,10 @@ def crear_ventas():
 def mostrar_disponibles():
     print("_" * 150)
     print("PRECIOS EN PESOS ARGENTINOS ($ARS) \n")
-    for indicemarca in range(len(imprimir_vehiculos)):
+    for indicemarca in range(len(vehiculos_texto)):
         print("Marca:", MarcasNombre[indicemarca])
         print("Autos disponibles:")
-        for infoauto in imprimir_vehiculos[indicemarca]:
+        for infoauto in vehiculos_texto[indicemarca]:
             print(str(infoauto).strip("[,]"))
         print("_" * 30)
 
@@ -83,11 +75,11 @@ def buscar_auto():
     auto = None
     while auto != "0":
         auto = str(input("Ingrese el modelo que desea buscar (por ejemplo Prado, Gol, Corolla, etc). Ingrese '0' para cancelar. : "))
-        for modelos in range(len(vehiculos_disponibles)):
-            for modelo in range(len(vehiculos_disponibles[modelos])):
-                if auto == vehiculos_disponibles[modelos][modelo][0]:
+        for modelos in range(len(vehiculos_lista)):
+            for modelo in range(len(vehiculos_lista[modelos])):
+                if auto == vehiculos_lista[modelos][modelo][0]:
                     disponible = True
-                    info = vehiculos_disponibles[modelos][modelo]
+                    info = vehiculos_lista[modelos][modelo]
         if disponible:
             print("El auto",auto, "se encuentra disponible: \n",
                 info)
@@ -115,6 +107,13 @@ def mostrar_ventas():
         print("_" * 150)
     print("PROMEDIO DE VENTAS POR MES:", (sumaanual/12)) #fix
 
+# "Main" - Preparar todo
+def inicializar():
+    for marca in Autos:
+        vehiculos_lista.append(random.sample(marca, random.randint(1,3)))
+    vehiculos_texto = preparar_autos(vehiculos_lista)
+    crear_ventas()
+
 #MENÚ DE OPCIONES
 funciones = {
     "1": mostrar_disponibles,
@@ -123,10 +122,7 @@ funciones = {
 }
 
 #PROGRAMA PRINCIPAL
-vehiculos_disponibles = crear() # Eliminar esto en futura versiones
-imprimir_vehiculos = rellenar_lista(vehiculos_disponibles)
-crear_ventas()
-
+inicializar()
 while True:
     opcion = int(input('''
                                     EL PATAGÓNICO AUTOMOTORES
