@@ -21,18 +21,18 @@ Calendario = {
 
 #Listas de vehiculos precargada
 Autos = [
-    toyota:= ["Hilux", "Sw4", "Corolla", "Etios", "Prado"],
-    ford:= ["Focus", "Eco-Sport", "Mondeo", "Ranger", "Fiesta", "Fiesta Kinetic"],
-    chevrolet:= ["S-10", "Cruze", "Prisma", "Tracker"],
-    volkswagen:= ["Gol", "Amarok", "Bora", "Vento", "Passat", "Surán"]
+    toyota:= ["hilux", "sw4", "corolla", "etios", "prado"],
+    ford:= ["focus", "eco-Sport", "mondeo", "ranger", "fiesta", "fiesta kinetic"],
+    chevrolet:= ["s-10", "cruze", "prisma", "tracker"],
+    volkswagen:= ["gol", "amarok", "bora", "vento", "passat", "surán"]
 ]
 
 #Template de marcas
 MarcasNombre = [
-    "Toyota",
-    "Ford",
-    "Chevrolet",
-    "Volkswagen"
+    "toyota",
+    "ford",
+    "chevrolet",
+    "volkswagen"
 ]
 
 # Asignar 'Características' de cada auto
@@ -43,7 +43,7 @@ def preparar_autos(template):
             ano = random.randint(2000, 2020)
             kms = random.randint(80000, 150000)
             precio = random.randint(2500000, 9000000)
-            info_vehiculo.append([modelo, " Año: " + str(ano), "Kms: " + str(kms), "Precio: " + str(precio)])
+            info_vehiculo.append([" - Modelo: " +str.capitalize(modelo)+ " - Año: " + str(ano) + " - Kms: " + str(kms) + " - Precio: $" + str(precio)])
         vehiculos_texto.append(info_vehiculo)
     
 # Crear ventas por mes
@@ -63,10 +63,10 @@ def mostrar_disponibles():
     print("_" * 150)
     print("PRECIOS EN PESOS ARGENTINOS ($ARS) \n")
     for indicemarca in range(len(vehiculos_texto)):
-        print("Marca:", MarcasNombre[indicemarca])
+        print("Marca:", str.capitalize(MarcasNombre[indicemarca]))
         print("Autos disponibles:")
         for infoauto in vehiculos_texto[indicemarca]:
-            print(str(infoauto).strip("[,]"))
+            print(str(infoauto).strip("[']"))
         print("_" * 30)
 
 # FUNCION 2 BUSCAR AUTO DISPONIBLE
@@ -74,7 +74,7 @@ def buscar_auto():
     disponible = False
     auto = None
     while auto != "0":
-        auto = str(input("Ingrese el modelo que desea buscar (por ejemplo Prado, Gol, Corolla, etc). Ingrese '0' para cancelar. : "))
+        auto = str(input("\nIngrese unicamente el modelo que desea buscar (por ejemplo Prado, Gol, Corolla, etc). \nIngrese '0' para volver al menú : "))
         for modelos in range(len(vehiculos_lista)):
             for modelo in range(len(vehiculos_lista[modelos])):
                 if str.lower(auto) == str.lower(vehiculos_lista[modelos][modelo]):
@@ -82,7 +82,7 @@ def buscar_auto():
                     info = vehiculos_texto[modelos][modelo]
                     break
         if disponible:
-            print("El auto",auto, "se encuentra disponible: \n", str(info).strip("[]"))
+            print("El auto",str.capitalize(auto), "se encuentra disponible: \n", str(info).strip("[']"))
         else: 
             print("El auto ingresado no se encuentra disponible")
 
@@ -111,14 +111,14 @@ def ultimas_ventas():
     for modelo in Calendario[ingresarmes][ingresarmarca]:
         venta = Calendario[ingresarmes][ingresarmarca][modelo]
         if ingresarmodelo == modelo:
-            info_venta = ("Modelo: "+str(modelo)+" - Cantidad de ventas en el mes "+str(ingresarmes)+": "+str(venta))
+            info_venta = ("Modelo: "+str.capitalize(modelo)+" - Cantidad de ventas en el mes "+str.capitalize(ingresarmes)+": "+str(venta))
             print(info_venta)
                      
 # OPCION 4: MOSTRAR VENTAS X MES + PROMEDIO
 def mostrar_ventas():
     sumaanual = 0
     sumameses = 0
-    ingresarmes = str.lower(input("Ingresar el mes actual: "))
+    ingresarmes = str.lower(input("\nIngresar el mes actual: "))
     while ingresarmes not in Calendario:
         ingresarmes = str.lower(input("Ingresar un mes válido: "))
     continuar = True
@@ -131,16 +131,16 @@ def mostrar_ventas():
         sumameses += 1
         for marca in Calendario[mes]:
             print("-" * 5)
-            print(str(marca + " - Ventas de" + mes))
+            print(str.capitalize(marca) + " - Ventas de " + str.capitalize(mes))
             print("-" * 5)
             sumamarca = 0
             for modelo in Calendario[mes][marca]:
                 venta = Calendario[mes][marca][modelo]
-                print(str(modelo)+":"+str(venta))
+                print(str.capitalize(modelo)+":"+str(venta))
                 sumamarca += venta
                 sumamensual += venta
                 sumaanual += venta
-            print("Total de ventas marca: "+str(marca)+":",sumamarca)
+            print("Total de ventas marca: "+str.capitalize(marca)+":",sumamarca)
         print("_" * 150)
         print("Total de ventas mes "+str.capitalize(mes)+":",sumamensual)
         print("_" * 150)
@@ -167,7 +167,6 @@ funciones = {
 
 # PROGRAMA PRINCIPAL
 inicializar()
-
 while True:
     opcion = str(input('''
                                     EL PATAGÓNICO AUTOMOTORES
