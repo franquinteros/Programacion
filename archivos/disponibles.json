@@ -1,0 +1,44 @@
+[
+    {
+        "marca": "Ford",
+        "modelo": "Focus",
+        "año": 2022,
+        "kilometros": 10000,
+        "precio": 18000000
+    },
+    {
+        "marca": "Chevrolet",
+        "modelo": "S-10",
+        "año": 2015,
+        "kilometros": 78000,
+        "precio": 20000000
+    },
+    {
+        "marca": "Toyota",
+        "modelo": "Etios",
+        "año": 2022,
+        "kilometros": 12000,
+        "precio": 14000000
+    },
+    {
+        "marca": "Chevrolet",
+        "modelo": "Prisma",
+        "año": 2018,
+        "kilometros": 78000,
+        "precio": 12000000
+    },
+    {
+        "marca": "Ford",
+        "modelo": "Focus",
+        "año": 2019,
+        "kilometros": 290000,
+        "precio": 25000000
+    },
+    {
+        "marca": "Toyota",
+        "modelo": "Supra",
+        "año": 1997,
+        "kilometros": 30000,
+        "precio": 75000000
+    }
+]

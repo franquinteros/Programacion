@@ -43,8 +43,17 @@ def preparar_autos(template):
             ano = random.randint(2000, 2020)
             kms = random.randint(80000, 150000)
             precio = random.randint(2500000, 9000000)
-            info_vehiculo.append([" - Modelo: " +str.capitalize(modelo)+ " - Año: " + str(ano) + " - Kms: " + str(kms) + " - Precio: $" + str(precio)])
+            info_vehiculo.append([" - Modelo: " + modelo.capitalize() + " - Año: " + str(ano) + " - Kms: " + str(kms) + " - Precio: $" + str(precio)])
         vehiculos_texto.append(info_vehiculo)
+    
+    opcion = ("Desea agregar un vehículo (S/N)")
+    marca = input("Ingrese la marca del modelo: ")
+    nuevomodelo = input("Ingrese el modelo que desea: ")
+    ano = input("Ingrese el año del modelo: ")
+    kms = input("Ingrese los kms del vehículo: ")
+    precio = input("Ingrese el precio: ")
+    for modelo in modelos:
+        info_vehiculo.append([" - Modelo: " + nuevomodelo.capitalize() + " - Año: " + str(ano) + " - Kms: " + str(kms) + " - Precio: $" + str(precio)])
     
 # Crear ventas por mes
 def crear_ventas():
@@ -63,7 +72,7 @@ def mostrar_disponibles():
     print("_" * 150)
     print("PRECIOS EN PESOS ARGENTINOS ($ARS) \n")
     for indicemarca in range(len(vehiculos_texto)):
-        print("Marca:", str.capitalize(MarcasNombre[indicemarca]))
+        print("Marca:", str(MarcasNombre[indicemarca]).capitalize())
         print("Autos disponibles:")
         for infoauto in vehiculos_texto[indicemarca]:
             print(str(infoauto).strip("[']"))
@@ -77,31 +86,32 @@ def buscar_auto():
         auto = str(input("\nIngrese unicamente el modelo que desea buscar (por ejemplo Prado, Gol, Corolla, etc). \nIngrese '0' para volver al menú : "))
         for modelos in range(len(vehiculos_lista)):
             for modelo in range(len(vehiculos_lista[modelos])):
-                if str.lower(auto) == str.lower(vehiculos_lista[modelos][modelo]):
+                if str(auto).lower() == str(vehiculos_lista[modelos][modelo]).lower():
                     disponible = True
                     info = vehiculos_texto[modelos][modelo]
                     break
         if disponible:
-            print("El auto",str.capitalize(auto), "se encuentra disponible: \n", str(info).strip("[']"))
+            print("El auto",str(auto).capitalize(), "se encuentra disponible: \n", str(info).strip("[']"))
+            disponible = False
         else: 
             print("El auto ingresado no se encuentra disponible")
 
 # FUNCION 3: CONSULTAR VENTAS REALIZADAS POR MES, MODELO Y MARCA
 def ultimas_ventas():
-    ingresarmes = str.lower(input("Ingrese el mes corriente: "))
+    ingresarmes = str(input("Ingrese el mes corriente: ").lower())
     while ingresarmes not in Calendario:
-        ingresarmes = str.lower(input("Ingrese un mes válido: "))
-    ingresarmarca = str.lower(input("Ingrese una marca: "))
+        ingresarmes = str(input("Ingrese un mes válido: ").lower())
+    ingresarmarca = str(input("Ingrese una marca: ").lower())
     while ingresarmarca not in MarcasNombre:
-        ingresarmarca = str.lower(input("Ingrese una marca válida: "))
+        ingresarmarca = str(input("Ingrese una marca válida: ").lower())
     modelo_encontrado = None
     while modelo_encontrado != True:
         if modelo_encontrado == False:
-            ingresarmodelo = str.lower(input("Modelo no encontrado, reingrese un modelo: "))
+            ingresarmodelo = str(input("Modelo no encontrado, reingrese un modelo: ").lower())
         else:  
-            ingresarmodelo = str.lower(input("Ingrese un modelo: "))
+            ingresarmodelo = str(input("Ingrese un modelo: ").lower())
         for modelo in Calendario[ingresarmes][ingresarmarca]:
-            if str.lower(ingresarmodelo) == str.lower(modelo):
+            if str(ingresarmodelo).lower() == str(modelo).lower():
                 modelo_encontrado = True
                 break
         if modelo_encontrado != True:
@@ -111,19 +121,19 @@ def ultimas_ventas():
     for modelo in Calendario[ingresarmes][ingresarmarca]:
         venta = Calendario[ingresarmes][ingresarmarca][modelo]
         if ingresarmodelo == modelo:
-            info_venta = ("Modelo: "+str.capitalize(modelo)+" - Cantidad de ventas en el mes "+str.capitalize(ingresarmes)+": "+str(venta))
+            info_venta = ("Modelo: "+str(modelo).capitalize() +" - Cantidad de ventas en el mes "+str(ingresarmes).capitalize() +": "+str(venta))
             print(info_venta)
                      
 # OPCION 4: MOSTRAR VENTAS X MES + PROMEDIO
 def mostrar_ventas():
     sumaanual = 0
     sumameses = 0
-    ingresarmes = str.lower(input("\nIngresar el mes actual: "))
+    ingresarmes = str(input("\nIngresar el mes actual: ").lower())
     while ingresarmes not in Calendario:
-        ingresarmes = str.lower(input("Ingresar un mes válido: "))
+        ingresarmes = str(input("Ingresar un mes válido: ").lower())
     continuar = True
     for mes in Calendario:
-        if str.lower(str(mes)) == str.lower(ingresarmes):
+        if str(mes).lower() == str(ingresarmes).lower():
             continuar = False
         if not continuar:
             break
@@ -131,18 +141,18 @@ def mostrar_ventas():
         sumameses += 1
         for marca in Calendario[mes]:
             print("-" * 5)
-            print(str.capitalize(marca) + " - Ventas de " + str.capitalize(mes))
+            print(str(marca).capitalize() + " - Ventas de " + str(mes).capitalize())
             print("-" * 5)
             sumamarca = 0
             for modelo in Calendario[mes][marca]:
                 venta = Calendario[mes][marca][modelo]
-                print(str.capitalize(modelo)+":"+str(venta))
+                print(str(modelo).capitalize() +":"+str(venta))
                 sumamarca += venta
                 sumamensual += venta
                 sumaanual += venta
-            print("Total de ventas marca: "+str.capitalize(marca)+":",sumamarca)
+            print("Total de ventas marca: "+str(marca).capitalize() +":",sumamarca)
         print("_" * 150)
-        print("Total de ventas mes "+str.capitalize(mes)+":",sumamensual)
+        print("Total de ventas mes "+str(mes).capitalize() +":",sumamensual)
         print("_" * 150)
     if sumameses <= 0:
         print("No hay suficientes meses.")
@@ -184,7 +194,7 @@ while True:
 
     if opcion in funciones:
         opcion = int(opcion)
-        if (opcion >= 0 and opcion <= 4) or type(opcion):
+        if (opcion >= 0 and opcion <= 4):
             if opcion == 0:
                 break
             else:

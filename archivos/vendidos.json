@@ -1,0 +1,56 @@
+[
+    {
+        "marca": "Toyota",
+        "modelo": "Corolla",
+        "año": 2018,
+        "kilometros": 439543.0,
+        "precio": 5453124.0,
+        "fecha venta": "04/11/24",
+        "vendedor": "Francisco Quinteros"
+    },
+    {
+        "marca": "toyota",
+        "modelo": "etios",
+        "año": 2018,
+        "kilometros": 4588829994.0,
+        "precio": 10032554.0,
+        "fecha venta": "06/11/24",
+        "vendedor": "Dante Fermanelli"
+    },
+    {
+        "marca": "Chevrolet",
+        "modelo": "Onix",
+        "año": 2016,
+        "kilometros": 0.0,
+        "precio": 17000000.0,
+        "fecha venta": "08/11/24",
+        "vendedor": "Thomas Gaya"
+    },
+    {
+        "marca": "Suzuki",
+        "modelo": "Fun",
+        "año": 2012,
+        "kilometros": 7655544.0,
+        "precio": 12000000.0,
+        "fecha venta": "12/11/24",
+        "vendedor": "Francisco Quinteros"
+    },
+    {
+        "marca": "Toyota",
+        "modelo": "Supra",
+        "año": 1997,
+        "kilometros": 30000.0,
+        "precio": 1.0,
+        "fecha venta": "12/01/24",
+        "vendedor": "Francisco Quinteros"
+    },
+    {
+        "marca": "Toyota",
+        "modelo": "corolla",
+        "año": 2022,
+        "kilometros": 544322.0,
+        "precio": 567888.0,
+        "fecha venta": "03/04/24",
+        "vendedor": "Francisco Quinteros"
+    }
+]
