@@ -32,7 +32,7 @@ def mostrar_info_json(arch="/Users/franciscoquinteros/Documents/UADE/Programaci√
         
 #FUNCION PARA SOLICITAR INFO DEL VEHICULO AL USUARIO 
 def obtener_info_vehiculo():
-    while True:
+
         #Valida la marca
         while True:
             marca = input("Ingrese la marca del veh√≠culo: ").strip()
