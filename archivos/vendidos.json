@@ -52,5 +52,14 @@
         "precio": 567888.0,
         "fecha venta": "03/04/24",
         "vendedor": "Francisco Quinteros"
+    },
+    {
+        "marca": "Ford",
+        "modelo": "Focus",
+        "año": 2022,
+        "kilometros": 10000.0,
+        "precio": 18000000.0,
+        "fecha venta": "19/02/24",
+        "vendedor": "Thomas Gaya"
     }
 ]

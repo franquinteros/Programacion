@@ -296,16 +296,19 @@ def mostrar_ventas_mes(arch_vendidos="/Users/franciscoquinteros/Documents/UADE/P
 #FUNCION 5
 #Para buscar autos disponibles según criterios
 def buscar_autos_disponibles(criterios=None, arch="/Users/franciscoquinteros/Documents/UADE/Programación/UADE 24/2do cuatr/TPO/archivos/disponibles.json"):
-    
     if criterios is None:
         criterios = {}
 
+    file = None
     try:
-        with open(arch, "r", encoding="utf-8") as file:
-            autos_disponibles = json.load(file)
+        file = open(arch, "r", encoding="utf-8")
+        autos_disponibles = json.load(file)
     except (FileNotFoundError, json.JSONDecodeError):
         print("No se pudo leer el archivo o está vacío.")
         return
+    finally:
+        if file:
+            file.close()
 
     if not autos_disponibles:
         print("No hay vehículos disponibles para mostrar.")
@@ -334,12 +337,16 @@ def buscar_autos_disponibles(criterios=None, arch="/Users/franciscoquinteros/Doc
 #FUNCION 6 
 #Para buscar autos disponibles por rango de precios
 def buscar_autos_por_rango_precio(arch="/Users/franciscoquinteros/Documents/UADE/Programación/UADE 24/2do cuatr/TPO/archivos/disponibles.json"):
+    file = None
     try:
-        with open(arch, "r", encoding="utf-8") as file:
-            autos_disponibles = json.load(file)
+        file = open(arch, "r", encoding="utf-8")
+        autos_disponibles = json.load(file)
     except (FileNotFoundError, json.JSONDecodeError):
         print("No se pudo leer el archivo o está vacío.")
         return
+    finally:
+        if file:
+            file.close()
 
     if not autos_disponibles:
         print("No hay vehículos disponibles para mostrar.")
@@ -405,6 +412,7 @@ def mostrar_menu():
 
 def menu():
     while True:
+        
         mostrar_menu()
         opcion = input("Ingrese una opción (0-6): ").strip()
 

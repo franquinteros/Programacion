@@ -1,12 +1,5 @@
 [
     {
-        "marca": "Ford",
-        "modelo": "Focus",
-        "año": 2022,
-        "kilometros": 10000,
-        "precio": 18000000
-    },
-    {
         "marca": "Chevrolet",
         "modelo": "S-10",
         "año": 2015,
